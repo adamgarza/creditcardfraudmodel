@@ -96,82 +96,111 @@ from sklearn.metrics import recall_score, f1_score
 # START
 # DATA PREPROCESSES ---------------------------------------------------------------
 # 1. READ IN THE DATASET ----------------------------------------------------------
-creditcard_dataset = pd.read_csv("creditcard_randomized.csv")   # SELECT DATASET FOR LOGIT, OVER SAMPLE OR UNDER SAMPLE
-# IF YOU SELECT THE OVER SAMPLE OR UNDER SAMPLE, REMOVE THE LOGIT WEIGHTING PARAMETER
+# 70/30 SPLIT - 70% TRAIN VS 30% TEST
+creditcard_train_set = pd.read_csv("creditcard_train_12182018.csv") # WEKA BALANCED UNDERREPRESENTED VS OVERREPRESENTED
+creditcard_test_set = pd.read_csv("creditcard_test_12182018.csv")   # TEST SET IS NOT MODIFIED
 
 
 # 2. RANDOMIZES/SHUFFLES THE DATASET ----------------------------------------------
-#randomized_dataset = creditcard_dataset.sample(frac=1)  # SHUFFLING THE DATASET USING SAMPLE.(FRACTION=0.8)
-#print("Randomized Dataset:")
-#print(randomized_dataset)
-#print("------------------------------------------------------------------------")
+randomized_train_set = creditcard_train_set.sample(frac=1)  # SHUFFLING THE DATASET TO ELIMINATE CLUSTERS
+randomized_test_set = creditcard_test_set.sample(frac=1)  # SHUFFLING THE DATASET TO ELIMINATE CLUSTERS
+print("Randomized Train Dataset:")
+print(randomized_train_set)
+print("------------------------------------------------------------------------")
+print("Randomized Test Dataset:")
+print(randomized_test_set)
+print("------------------------------------------------------------------------")
 
 
 # 3. ONE-HOT ENCODING -------------------------------------------------------------
-one_hot_dataset = pd.get_dummies(creditcard_dataset, columns=["Class"])
-print("one-hot: ")
-print(one_hot_dataset)
+one_hot_train = pd.get_dummies(randomized_train_set, columns=["Class"])
+one_hot_test = pd.get_dummies(randomized_test_set, columns=["Class"])
+print("one-hot train: ")
+print(one_hot_train)
+print("------------------------------------------------------------------------")
+print("one-hot test: ")
+print(one_hot_test)
 print("------------------------------------------------------------------------")
 
 
 # 4. NORMALIZE THE DATA -----------------------------------------------------------
-norm_data = (one_hot_dataset - one_hot_dataset.min()) / (one_hot_dataset.max() - one_hot_dataset.min())
+norm_train = (one_hot_train - one_hot_train.min()) / (one_hot_train.max() - one_hot_train.min())
 print("Normalized: (CONVERTS FEATURES & CLASSES INTO VALUES BETWEEN 0-1 EXCLUSIVELY)")
-print(norm_data)
+print(norm_train)
+print("------------------------------------------------------------------------")
+norm_test = (one_hot_test - one_hot_test.min()) / (one_hot_test.max() - one_hot_test.min())
+print("Normalized: (CONVERTS FEATURES & CLASSES INTO VALUES BETWEEN 0-1 EXCLUSIVELY)")
+print(norm_test)
 print("------------------------------------------------------------------------")
 
 
 # 5. SEPARATING THE X & Y VALUES --------------------------------------------------
-split_X = norm_data.drop(["Class_0", "Class_1"], axis=1)   # [ number of rows x 30 columns of features ]
-print("split_X: (ALL FEATURES)")
-print(split_X)
+split_X_train = norm_train.drop(["Class_0", "Class_1"], axis=1)   # [ number of rows x 30 columns of features ]
+print("split_X_train: (ALL FEATURES)")
+print(split_X_train)
 # Y VALUES WILL BE THE ONE_HOT_DATA (CLASSES) COLUMN
-split_y = norm_data[["Class_0", "Class_1"]]    # [ number of rows x 2 columns of classes ]
-print("split_y: (ALL CLASSIFICATIONS)")
-print(split_y)
+split_y_train = norm_train[["Class_0", "Class_1"]]    # [ number of rows x 2 columns of classes ]
+print("split_y_train: (ALL CLASSIFICATIONS)")
+print(split_y_train)
+print("------------------------------------------------------------------------")
+split_X_test = norm_test.drop(["Class_0", "Class_1"], axis=1)   # [ number of rows x 30 columns of features ]
+print("split_X_test: (ALL FEATURES)")
+print(split_X_test)
+# Y VALUES WILL BE THE ONE_HOT_DATA (CLASSES) COLUMN
+split_y_test = norm_test[["Class_0", "Class_1"]]    # [ number of rows x 2 columns of classes ]
+print("split_y_test: (ALL CLASSIFICATIONS)")
+print(split_y_test)
 print("------------------------------------------------------------------------")
 
 
 # 6. CONVERT THESE DATA FRAMES INTO NUMPY ARRAYS ----------------------------------
-array_X = np.asanyarray(split_X.values, dtype="float32")
-print("Array_X: (NUMPY ARRAY OF ALL FEATURES)")
-print(array_X)
-array_y = np.asanyarray(split_y.values, dtype="float32")
-print("Array_y: (NUMPY ARRAY OF ALL CLASSIFICATIONS)")
-print(array_y)
-print("------------------------------------------------------------------------")
-
-
-# 7. SPLITTING THE DATA INTO 2 HALVES (TRAIN & TEST) ------------------------------
-train_size = int(0.8 * len(array_X))
-
-# FOR TRAIN - GRAB EVERYTHING FROM 0 TO LENGTH TRAIN_SIZE (80% OF CONTENT)
-raw_X_train = array_X[:train_size]
-raw_y_train = array_y[:train_size]
-#raw_X_train = random.shuffle(array_X[:train_size])
-#raw_y_train = random.shuffle(array_y[:train_size])
-
-print("raw_X_train :")
+raw_X_train = np.asanyarray(split_X_train.values, dtype="float32")
+print("raw_X_train: (NUMPY ARRAY OF ALL FEATURES)")
 print(raw_X_train)
-#print(len(raw_X_train))
-print("raw_y_train: ")
+raw_y_train = np.asanyarray(split_y_train.values, dtype="float32")
+print("raw_y_train: (NUMPY ARRAY OF ALL CLASSIFICATIONS)")
 print(raw_y_train)
-print("\n")
-
-# FOR TEST - GRAB EVERYTHING FORM TRAIN_SIZE TO THE END (20% OF CONTENT)
-raw_X_test = array_X[train_size:]
-raw_y_test = array_y[train_size:]
-print("raw_X_test :")
+print("------------------------------------------------------------------------")
+raw_X_test = np.asanyarray(split_X_test.values, dtype="float32")
+print("raw_X_test: (NUMPY ARRAY OF ALL FEATURES)")
 print(raw_X_test)
-#print(len(raw_X_test))
-print("raw_y_test :")
+raw_y_test = np.asanyarray(split_y_test.values, dtype="float32")
+print("raw_y_test: (NUMPY ARRAY OF ALL CLASSIFICATIONS)")
 print(raw_y_test)
 print("------------------------------------------------------------------------")
 
 
+#####################################################################################
+# # 7. SPLITTING THE DATA INTO 2 HALVES (TRAIN & TEST) ------------------------------
+# train_size = int(0.8 * len(array_X))
+#
+# # FOR TRAIN - GRAB EVERYTHING FROM 0 TO LENGTH TRAIN_SIZE (80% OF CONTENT)
+# raw_X_train = array_X[:train_size]
+# raw_y_train = array_y[:train_size]
+# #raw_X_train = random.shuffle(array_X[:train_size])
+# #raw_y_train = random.shuffle(array_y[:train_size])
+#
+# print("raw_X_train :")
+# print(raw_X_train)
+# #print(len(raw_X_train))
+# print("raw_y_train: ")
+# print(raw_y_train)
+# print("\n")
+#
+# # FOR TEST - GRAB EVERYTHING FORM TRAIN_SIZE TO THE END (20% OF CONTENT)
+# raw_X_test = array_X[train_size:]
+# raw_y_test = array_y[train_size:]
+# print("raw_X_test :")
+# print(raw_X_test)
+# #print(len(raw_X_test))
+# print("raw_y_test :")
+# print(raw_y_test)
+# print("------------------------------------------------------------------------")
+#####################################################################################
+
+
 # 8. CALCULATE RATIO FOR LEGIT VS FRAUD -------------------------------------------
-# count_legit, count_fraud = np.unique(creditcard_dataset["Class"], return_counts=True)[1]
-count_legit, count_fraud = np.unique(creditcard_dataset["Class"], return_counts=True)[1]
+count_legit, count_fraud = np.unique(creditcard_train_set["Class"], return_counts=True)[1]
 print("legit count", count_legit)
 print("fraud count", count_fraud)
 fraud_ratio = float(count_fraud / (count_legit + count_fraud))
@@ -193,12 +222,18 @@ print("------------------------------------------------------------------------"
 # BUILDING THE COMPUTATIONAL GRAPH COMPONENTS (LAYERS & NODES) --------------------
 # ---------------------------------------------------------------------------------
 # 10. DEFINING THE SHAPE OF X & y (TENSOR OF 30 & TENSOR OF 2 RESPECTIVELY) -------
-input_X = array_X.shape[1]  # TENSOR OF 30
+input_X = raw_X_train.shape[1]  # TENSOR OF 30
 # ESTABLISHES THE SHAPE OF y - ONE-HOT ENCODED [0, 1] or [1, 0] (TENSOR OF 2 ELEMENTS)
-output_y = array_y.shape[1]  # TENSOR OF 2
-print("input_X: ", input_X)
-print("output_y: ", output_y)
+output_y = raw_y_train.shape[1]  # TENSOR OF 2
+print("input_X_train: ", raw_X_train)
+print("output_y_train: ", raw_y_train)
 print("------------------------------------------------------------------------")
+# input_X_test = array_X_test.shape[1]  # TENSOR OF 30
+# # ESTABLISHES THE SHAPE OF y - ONE-HOT ENCODED [0, 1] or [1, 0] (TENSOR OF 2 ELEMENTS)
+# output_y_test = array_y_test.shape[1]  # TENSOR OF 2
+# print("input_X_test: ", input_X_test)
+# print("output_y_test: ", output_y_test)
+# print("------------------------------------------------------------------------")
 
 
 # 11. DEFINING NEURONS IN THE 2 HIDDEN LAYERS -------------------------------------
@@ -212,8 +247,8 @@ y_train_node = tf.placeholder(tf.float32, [None, output_y], name="y_train_node")
 
 
 # 13. DEFINING INPUTS FOR TESTING NODES -------------------------------------------
-X_test_node = tf.constant(raw_X_test, name="X_test_node")    # TAKES IN THE RAW TEST INPUT
-y_test_node = tf.constant(raw_y_test, name="y_test_node")    # TAKES IN THE RAW TEST OUTPUT
+X_test_node = tf.constant(raw_X_test, name="X_test_node")    # TAKES IN THE RAW TEST INPUT        ***
+y_test_node = tf.constant(raw_y_test, name="y_test_node")    # TAKES IN THE RAW TEST OUTPUT      ***
 
 
 
@@ -263,7 +298,7 @@ def calc_accuracy(actual, predicted):
     return (100 * np.sum(np.equal(predicted, actual)) / predicted.shape[0])
 
 # 22. DETERMINE VALUE FOR EPOCH ITERATIONS
-n_epochs = 20
+n_epochs = 100
 
 
 
@@ -277,7 +312,7 @@ with tf.Session() as sess:
 
         # 24. RUN THE SESSION CALCULATING CROSS-ENTROPY GIVEN THE TRAINING SET
         _, xentropy_score = sess.run([optimizer, xentropy],
-                                        feed_dict={X_train_node: raw_X_train, y_train_node: raw_y_train})
+                                        feed_dict={X_train_node: raw_X_train, y_train_node: raw_y_train})   # ***
 
         # 25. DISPLAY OUTPUT @ EVERY 10TH EPOCH & CALCULATE THE TIME ELAPSED
         if epoch % 5 == 0:
@@ -329,4 +364,5 @@ with tf.Session() as sess:
     print("\n")
     print("---------------------------------- END ----------------------------------")
     print("\n")
+
 
