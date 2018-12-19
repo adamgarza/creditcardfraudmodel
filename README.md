@@ -73,17 +73,17 @@ Where, TP = True Positive, and FN = False Negative
 F-1 Measure - The F1 Measure score represents an average of the precision score and recall score.<br />
 F-1 = 2 * ( Precision * Recall ) / Precision 
  
- - Confision Matrix
+ **Confision Matrix**
  
 ![Confusion Matrix](http://thecreativefew.com/assets/images/matrix.svg)
-
+<br />
 Visualizing the Deep Neural Network.
  - Input Layer w/30 Features
  - Hidden Layer 1 w/300 Neurons
  - Hidden Layer 2 w/450 Neurons
  - Output Layer w/2 Classifications
 
- - Neural Network
+ **Neural Network**
  
 ![Deep Neural Network w/2 Hidden Layers](http://thecreativefew.com/assets/images/neural_network.svg)
 
