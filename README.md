@@ -6,7 +6,8 @@ Keywords: Deep Learning, Neural Networks, Tensorflow, Logistic Regression, Credi
 
 ## Things Need to Build/Replicate the Model
 Download the dataset from Kaggle Inc. @ https://www.kaggle.com/mlg-ulb/creditcardfraud <br />
-Weka (Windows, OS X, Linux) can be downloaded @ https://www.cs.waikato.ac.nz/ml/weka/downloading.html
+Weka (Windows, OS X, Linux) can be downloaded @ https://www.cs.waikato.ac.nz/ml/weka/downloading.html <br />
+PyCharm IDE Community Version is available for download @ https://www.jetbrains.com/pycharm/download/ (use editor of your choice) <br />
 `Iteration5.py` is the current version of the model. <br />
 
 ---
