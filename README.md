@@ -1,6 +1,6 @@
 # Credit Card Fraud Detection Model  |  Logistic Regression
 
-[![The Creative Few](http://thecreativefew.com/assets/images/creative_few_logo.svg)]
+![The Creative Few](http://thecreativefew.com/assets/images/creative_few_logo.svg)
 
 Keywords: Deep Learning, Neural Networks, Tensorflow, Logistic Regression, Credit Card Fraud Detection, Python, PyCharm IDE
 
@@ -81,7 +81,8 @@ Visualizing the Deep Neural Network.
  - Output Layer w/2 Classifications
 
  - Neural Network
-![Deep Neural Network w/2 Hidden Layers](http://thecreativefew.com/assets/images/neural_nertwork.svg)
+ 
+![Deep Neural Network w/2 Hidden Layers](http://thecreativefew.com/assets/images/neural_network.svg)
 
 ---
 
