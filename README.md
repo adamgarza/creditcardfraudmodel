@@ -58,24 +58,27 @@ The model in Overview:
 ---
 
 ## Noteworthy Inclusions
-Accuracy - Overall, how often is the model correct?<br />
+**Accuracy** - Overall, how often is the model correct?<br />
 Accuracy Rate = ( TP + TN ) / ( TP + FN + FP + TN )<br />
 Where, TP = True Positive, TN = True Negative, FP = False Positive, and FN = False Negative 
 
-Precision - When the model predicts “Fraud," how often is it correct?<br />
+**Precision** - When the model predicts “Fraud," how often is it correct?<br />
 Precision = TP / ( TP + FP )<br />
 Where, TP = True Positive and FP = False Positive
 
-Recall - When it is “Fraud,” how often does it predict as such?<br />
+**Recall** - When it is “Fraud,” how often does it predict as such?<br />
 Recall = TP / ( TP + FN )<br />
 Where, TP = True Positive, and FN = False Negative
 
-F-1 Measure - The F1 Measure score represents an average of the precision score and recall score.<br />
+**F-1 Measure** - The F1 Measure score represents an average of the precision score and recall score.<br />
 F-1 = 2 * ( Precision * Recall ) / Precision 
+
+<br  />
  
  **Confision Matrix**
  
 ![Confusion Matrix](http://thecreativefew.com/assets/images/matrix.svg)
+<br />
 <br />
 <br />
 Visualizing the Deep Neural Network.
