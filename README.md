@@ -77,6 +77,7 @@ F-1 = 2 * ( Precision * Recall ) / Precision
  
 ![Confusion Matrix](http://thecreativefew.com/assets/images/matrix.svg)
 <br />
+<br />
 Visualizing the Deep Neural Network.
  - Input Layer w/30 Features
  - Hidden Layer 1 w/300 Neurons
