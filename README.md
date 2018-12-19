@@ -5,7 +5,8 @@
 Keywords: Deep Learning, Neural Networks, Tensorflow, Logistic Regression, Credit Card Fraud Detection, Python, PyCharm IDE
 
 ## Things Need to Build/Replicate the Model
-Download the dataset from Kaggle Inc. @ https://www.kaggle.com/mlg-ulb/creditcardfraud
+Download the dataset from Kaggle Inc. @ https://www.kaggle.com/mlg-ulb/creditcardfraud <br />
+`Iteration5.py` is the current version of the model.
 
 ---
 
