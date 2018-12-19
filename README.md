@@ -90,7 +90,8 @@ Visualizing the Deep Neural Network.
 ---
 
 ## Work To Be Done
-The model is in flux and there is still work to be done for improvement. Work that still needs to be done includes:
+The model is in flux and there is much room for improvement. <br />
+Works that still need to be completed includes the implementation of:
   - 10 Fold Cross Validation
   - Feature Ranking
   - ROC
