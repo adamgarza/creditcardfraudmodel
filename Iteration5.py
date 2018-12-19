@@ -97,8 +97,8 @@ from sklearn.metrics import recall_score, f1_score
 # DATA PREPROCESSES ---------------------------------------------------------------
 # 1. READ IN THE DATASET ----------------------------------------------------------
 # 70/30 SPLIT - 70% TRAIN VS 30% TEST
-creditcard_train_set = pd.read_csv("creditcard_train_12182018.csv") # WEKA BALANCED UNDERREPRESENTED VS OVERREPRESENTED
-creditcard_test_set = pd.read_csv("creditcard_test_12182018.csv")   # TEST SET IS NOT MODIFIED
+creditcard_train_set = pd.read_csv("creditcard_train_2018.csv") # WEKA BALANCED UNDERREPRESENTED VS OVERREPRESENTED
+creditcard_test_set = pd.read_csv("creditcard_test_2018.csv")   # TEST SET IS NOT MODIFIED
 
 
 # 2. RANDOMIZES/SHUFFLES THE DATASET ----------------------------------------------
