@@ -4,6 +4,7 @@
 # ADAM GARZA
 # ITS490 PROJECT
 # FALL 2018
+# PLEASE NOT THAT AS THIS PROJECT EVOLVES - SECTIONS OF THE CODE ARE NO LONFER USED. (I.E, THE TRAIN AND TEST SETS ARE SPLIT USING WEKA UI)
 # ---------------------------------------------------------------------------------
 
 import numpy as np
